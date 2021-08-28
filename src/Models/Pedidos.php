@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use PDO;
-
 class Pedidos
 {
   private static $table = 'pedidos';
@@ -127,14 +125,6 @@ class Pedidos
     
     $connectionPDO = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
 
-    $get_status  = 'SELECT status from ' . self::$table . ' WHERE id = :id';
-    $stmt_status = $connectionPDO->prepare($get_status);
-    $stmt_status->bindValue(':id', $id);
-    $stmt_status->execute();
-    $data_status = $stmt_status->fetch(\PDO::FETCH_ASSOC);
-    
-    $data["status"] = isset($data["status"]) ? $data["status"] : $data_status["status"];
-
     foreach ($data as $key => $value)
     {     
       $sql = 'UPDATE ' . self::$table . ' SET ' . $key . ' = :vl WHERE id = :id';
@@ -144,7 +134,11 @@ class Pedidos
       $stmt->bindValue(':id', $id);
       $stmt->execute();
     }
-    self::inativarAtivar($id, $data["status"]);
+
+    if (isset($data["status"]))
+    {
+      self::inativarAtivar($id, $data["status"]);
+    }
   }
   
   public static function delete($id)

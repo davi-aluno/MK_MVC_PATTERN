@@ -46,27 +46,22 @@ class Produtos
   }
 
   public static function insert($data)
-  {
-    $data = json_decode($data, true);
-    
+  {    
     $connectionPDO = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
 
-    $sql = 'INSERT INTO '.self::$table.' (nome, imagem, descricao, quantidade, preco, status, fornecedor_id) VALUES (:nm, :ig, :dc, :qt, :pr, :st, :fn)';
+    $sql = 'INSERT INTO '.self::$table.' (nome, imagem, descricao, quantidade, preco, status, fornecedor_id) VALUES (:nm, :ig, :dc, :qt, :pr, 1, :fn)';
     $stmt = $connectionPDO->prepare($sql);
     $stmt->bindValue(':nm', $data['nome']);
     $stmt->bindValue(':ig', $data['imagem']);
     $stmt->bindValue(':dc', $data['descricao']);
     $stmt->bindValue(':qt', $data['quantidade']);
     $stmt->bindValue(':pr', $data['preco']);
-    $stmt->bindValue(':st', $data['status']);
     $stmt->bindValue(':fn', $data['fornecedor_id']);
     $stmt->execute();
   }
   
   public static function update($id, $data)
-  {
-    $data = json_decode($data, true);
-    
+  {    
     $connectionPDO = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
     
     foreach ($data as $key => $value)
@@ -84,7 +79,7 @@ class Produtos
   {
     $connectionPDO = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
 
-    $sql = 'UPDATE ' . self::$table . ' SET status = "inativo" WHERE id = :id';
+    $sql = 'UPDATE ' . self::$table . ' SET status = 0 WHERE id = :id';
     
     $stmt = $connectionPDO->prepare($sql);
     $stmt->bindValue(':id', $id);

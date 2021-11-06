@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+use App\Middlewares\UsuarioMiddleware;
+
 class Usuarios
 {
   private static $table = 'usuarios';
@@ -14,7 +18,7 @@ class Usuarios
     $stmt = $connectionPDO->prepare($sql);
     $stmt->bindValue(':id', $id);
     $stmt->execute();
-    
+
     if ($stmt->rowCount() > 0)
     {
       $data = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -51,13 +55,12 @@ class Usuarios
     
     $connectionPDO = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME, DBUSER, DBPASS);
 
-    $sql = 'INSERT INTO '.self::$table.' (nome, email, cpf, senha, status) VALUES (:nm, :el, :cf, :sh, :st)';
+    $sql = 'INSERT INTO '.self::$table.' (nome, email, cpf, senha, status) VALUES (:nm, :el, :cf, :sh, 1)';
     $stmt = $connectionPDO->prepare($sql);
     $stmt->bindValue(':nm', $data['nome']);
     $stmt->bindValue(':el', $data['email']);
     $stmt->bindValue(':cf', $data['cpf']);
     $stmt->bindValue(':sh', $data['senha']);
-    $stmt->bindValue(':st', $data['status']);
     $stmt->execute();
   }
   
@@ -76,13 +79,15 @@ class Usuarios
       $stmt->bindValue(':id', $id);
       $stmt->execute();
     }
+
+    return 'Informações de usuário atualizadas.';
   }
   
   public static function delete($id)
   {
     $connectionPDO = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
 
-    $sql = 'UPDATE ' . self::$table . ' SET status = "inativo" WHERE id = :id';
+    $sql = 'UPDATE ' . self::$table . ' SET status = 0 WHERE id = :id';
     
     $stmt = $connectionPDO->prepare($sql);
     $stmt->bindValue(':id', $id);

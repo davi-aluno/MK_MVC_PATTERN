@@ -3,18 +3,23 @@
 namespace App\Controllers;
 
 use App\Models\Usuarios;
+use App\Middlewares\AdminMiddleware;
+use App\Middlewares\UsuarioMiddleware;
 
 class UsuariosController
-{  
+{
   public function get($id = null) 
   {
-    if ($id)
+    if (!empty($_GET["api_key"]) && AdminMiddleware::verify($_GET["api_key"]))
     {
-      return Usuarios::get($id);
-    }
-    else
-    {
-      return Usuarios::getAll();
+      if ($id)
+      {
+        return Usuarios::get($id);
+      }
+      else
+      {
+        return Usuarios::getAll();
+      }
     }
   }
 
@@ -27,15 +32,18 @@ class UsuariosController
   public function patch($id) 
   {
     $data = file_get_contents('php://input');
-    if ($id && $data)
+    
+    if (UsuarioMiddleware::verify($data, $id) && $id && $data)
     {
-      Usuarios::update($id, $data);
+       Usuarios::update($id, $data);
     }
   }
 
   public function delete($id) 
   {
-    if ($id)
+    $data = file_get_contents('php://input');
+    
+    if (UsuarioMiddleware::verify($data, $id) && $id)
     {
       Usuarios::delete($id);
     }

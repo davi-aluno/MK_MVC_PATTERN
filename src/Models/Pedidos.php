@@ -1,155 +1,61 @@
 <?php
 
-namespace App\Models;
+namespace App\Controllers;
 
-class Pedidos
-{
-  private static $table = 'pedidos';
+use App\Models\Pedidos;
+use App\Middlewares\AdminMiddleware;
+use App\Middlewares\UsuarioMiddleware;
 
-  public static function get($id)
+class PedidosController
+{  
+  public function get($id = null) 
   {
-    $connectionPDO = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME, DBUSER, DBPASS);
-
-    $sql = 'SELECT * FROM ' . self::$table . ' WHERE id = :id';
-    $stmt = $connectionPDO->prepare($sql);
-    $stmt->bindValue(':id', $id);
-    $stmt->execute();
-    
-    if ($stmt->rowCount() > 0)
+    if (AdminMiddleware::verify($_GET["api_key"]))
     {
-      $data = $stmt->fetch(\PDO::FETCH_ASSOC);
-      echo json_encode($data, JSON_PRETTY_PRINT);
-    }
-    else
-    {
-      throw new \Exception("Nenhum pedido encontrado!");
+      if ($id)
+      {
+        return Pedidos::get($id);
+      }
+      else
+      {
+        return Pedidos::getAll();
+      }
     }
   }
 
-  public static function getAll()
+  public function post() 
   {
-    $connectionPDO = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
-
-    $sql = 'SELECT * FROM ' . self::$table;
-    $stmt = $connectionPDO->prepare($sql);
-    $stmt->execute();
-
-    if ($stmt->rowCount() > 0)
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+    
+    if (!empty($data["api_key"]))
     {
-      $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-      echo json_encode($data, JSON_PRETTY_PRINT);
-    }
-    else
-    {
-      throw new \Exception("Nenhum pedido encontrado!");
+      Pedidos::insert($data);
     }
   }
 
-  public static function insert($data)
+  public function patch($id) 
   {
-    $data = json_decode($data, true);
-        
-    $connectionPDO = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
 
-    $sql = 'SELECT quantidade FROM produtos WHERE id = :ps';
-    $stmt = $connectionPDO->prepare($sql);
-    $stmt->bindValue(':ps', $data["produto_id"]);
-    $stmt->execute();
-    
-    $quantidadeDisponivel = $stmt->fetch(\PDO::FETCH_ASSOC)["quantidade"];
-    $quantidadeAtual = $quantidadeDisponivel -  $data['quantidade'];
-    
-    $sql = 'UPDATE produtos SET quantidade = :qa WHERE id = :ps';
-    $stmt = $connectionPDO->prepare($sql);
-    $stmt->bindValue(':qa', $quantidadeAtual);
-    $stmt->bindValue(':ps', $data["produto_id"]);
-    $stmt->execute();
-    
-    $sql = 'INSERT INTO '.self::$table.' (nome, quantidade, rua, numero, cep, complemento, telefone, bairro, status, usuario_id, produto_id) VALUES (:nm, :qt, :ru, :nm, :cp, :ct, :ph, :br, :st, :ur, :ps)';
-    $stmt = $connectionPDO->prepare($sql);
-    $stmt->bindValue(':nm', $data['nome']);
-    $stmt->bindValue(':qt', $data['quantidade']);
-    $stmt->bindValue(':ru', $data['rua']);
-    $stmt->bindValue(':nm', $data['numero']);
-    $stmt->bindValue(':cp', $data['cep']);
-    $stmt->bindValue(':ct', $data['complemento']);
-    $stmt->bindValue(':ph', $data['telefone']);
-    $stmt->bindValue(':br', $data['bairro']);
-    $stmt->bindValue(':st', $data['status']);
-    $stmt->bindValue(':ur', $data['usuario_id']);
-    $stmt->bindValue(':ps', $data['produto_id']);
-    $stmt->execute();
-  }
-  
-  public static function inativarAtivar($id, $status)
-  {
-    $connectionPDO = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
-    
-    $sql = 'SELECT quantidade, produto_id FROM ' . self::$table . ' WHERE id = :id';
-    $stmt = $connectionPDO->prepare($sql);
-    $stmt->bindValue(':id', $id);
-    $stmt->execute();
-      
-    $data = $stmt->fetch(\PDO::FETCH_ASSOC);
-      
-    $quantidadeSolicitada  = $data["quantidade"];
-    $idDoProdutoSolicitado = $data["produto_id"];
-      
-    $sql = 'SELECT quantidade FROM produtos WHERE id = :id';
-    $stmt = $connectionPDO->prepare($sql);
-    $stmt->bindValue(':id', $idDoProdutoSolicitado);
-    $stmt->execute();
-    
-    $data = $stmt->fetch(\PDO::FETCH_ASSOC);
-    $quantidadeDisponivel = $data["quantidade"];
-        
-    if ($status === "ativo")
+    if (!empty($data["api_key"]) && AdminMiddleware::verify($data["api_key"]) && $id && $data)
     {
-      $quantidadeAtual = $quantidadeDisponivel - $quantidadeSolicitada;
-    }
-    else if ($status === "inativo")
-    {
-      $quantidadeAtual = $quantidadeDisponivel + $quantidadeSolicitada;
-    }
-
-    $sql = 'UPDATE produtos SET quantidade = :qa WHERE id = :id';
-    $stmt = $connectionPDO->prepare($sql);
-    $stmt->bindValue(':qa', $quantidadeAtual);
-    $stmt->bindValue(':id', $idDoProdutoSolicitado);
-    $stmt->execute();
-  }
-  
-  public static function update($id, $data)
-  {
-    $data = json_decode($data, true);
-    
-    $connectionPDO = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
-
-    foreach ($data as $key => $value)
-    {     
-      $sql = 'UPDATE ' . self::$table . ' SET ' . $key . ' = :vl WHERE id = :id';
-      
-      $stmt = $connectionPDO->prepare($sql);
-      $stmt->bindValue(':vl', $value);
-      $stmt->bindValue(':id', $id);
-      $stmt->execute();
-    }
-
-    if (isset($data["status"]))
-    {
-      self::inativarAtivar($id, $data["status"]);
+      Pedidos::update($id, $data);
     }
   }
-  
-  public static function delete($id)
+
+  public function delete($id) 
   {
-    self::inativarAtivar($id, "inativo");
-    $connectionPDO = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME, DBUSER, DBPASS);
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
     
-    $sql = 'UPDATE ' . self::$table . ' SET status = "inativo" WHERE id = :id';
-    
-    $stmt = $connectionPDO->prepare($sql);
-    $stmt->bindValue(':id', $id);
-    $stmt->execute();
+    if (AdminMiddleware::verify($data["api_key"]))
+    {
+      if ($id)
+      {
+        Pedidos::delete($id);
+      }
+    }
   }
 }

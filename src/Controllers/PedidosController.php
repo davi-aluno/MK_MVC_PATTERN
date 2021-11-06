@@ -3,31 +3,43 @@
 namespace App\Controllers;
 
 use App\Models\Pedidos;
+use App\Middlewares\AdminMiddleware;
+use App\Middlewares\UsuarioMiddleware;
 
 class PedidosController
 {  
   public function get($id = null) 
   {
-    if ($id)
+    if (AdminMiddleware::verify($_GET["api_key"]))
     {
-      return Pedidos::get($id);
-    }
-    else
-    {
-      return Pedidos::getAll();
+      if ($id)
+      {
+        return Pedidos::get($id);
+      }
+      else
+      {
+        return Pedidos::getAll();
+      }
     }
   }
 
   public function post() 
   {
-    $data = file_get_contents('php://input');
-    Pedidos::insert($data);
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+    
+    if (!empty($data["api_key"]))
+    {
+      Pedidos::insert($data);
+    }
   }
 
   public function patch($id) 
   {
-    $data = file_get_contents('php://input');
-    if ($id && $data)
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+
+    if (!empty($data["api_key"]) && AdminMiddleware::verify($data["api_key"]) && $id && $data)
     {
       Pedidos::update($id, $data);
     }
@@ -35,9 +47,15 @@ class PedidosController
 
   public function delete($id) 
   {
-    if ($id)
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+    
+    if (AdminMiddleware::verify($data["api_key"]))
     {
-      Pedidos::delete($id);
+      if ($id)
+      {
+        Pedidos::delete($id);
+      }
     }
   }
 }

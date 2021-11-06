@@ -46,25 +46,21 @@ class Fornecedores
   }
 
   public static function insert($data)
-  {
-    $data = json_decode($data, true);
-    
+  {    
     $connectionPDO = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
 
-    $sql = 'INSERT INTO '.self::$table.' (nome, telefone, email, cnpj, status) VALUES (:nm, :tl, :el, :cn, :st)';
+    $sql = 'INSERT INTO '.self::$table.' (nome, telefone, email, cnpj, status) VALUES (:nm, :tl, :el, :cn, 1)';
     $stmt = $connectionPDO->prepare($sql);
     $stmt->bindValue(':nm', $data['nome']);
     $stmt->bindValue(':tl', $data['telefone']);
     $stmt->bindValue(':el', $data['email']);
     $stmt->bindValue(':cn', $data['cnpj']);
-    $stmt->bindValue(':st', $data['status']);
+    // $stmt->bindValue(':st', $data['status']);
     $stmt->execute();
   }
   
   public static function update($id, $data)
   {
-    $data = json_decode($data, true);
-    
     $connectionPDO = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME, DBUSER, DBPASS);
     
     foreach ($data as $key => $value)
@@ -82,7 +78,7 @@ class Fornecedores
   {
     $connectionPDO = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname='.DBNAME, DBUSER, DBPASS);
 
-    $sql = 'UPDATE ' . self::$table . ' SET status = "inativo" WHERE id = :id';
+    $sql = 'UPDATE ' . self::$table . ' SET status = 0 WHERE id = :id';
     
     $stmt = $connectionPDO->prepare($sql);
     $stmt->bindValue(':id', $id);

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Produtos;
+use App\Middlewares\AdminMiddleware;
 
 class ProdutosController
 {  
@@ -20,14 +21,21 @@ class ProdutosController
 
   public function post() 
   {
-    $data = file_get_contents('php://input');
-    Produtos::insert($data);
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+    
+    if (!empty($data["api_key"]) && AdminMiddleware::verify($data["api_key"]))
+    {
+      Produtos::insert($data);
+    }
   }
 
   public function patch($id) 
   {
-    $data = file_get_contents('php://input');
-    if ($id && $data)
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+
+    if (!empty($data["api_key"]) && AdminMiddleware::verify($data["api_key"]) && $id && $data)
     {
       Produtos::update($id, $data);
     }
@@ -35,7 +43,10 @@ class ProdutosController
 
   public function delete($id) 
   {
-    if ($id)
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+
+    if (!empty($data["api_key"]) && AdminMiddleware::verify($data["api_key"]) && $id)
     {
       Produtos::delete($id);
     }

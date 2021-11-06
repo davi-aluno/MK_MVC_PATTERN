@@ -3,41 +3,61 @@
 namespace App\Controllers;
 
 use App\Models\Fornecedores;
+use App\Middlewares\AdminMiddleware;
 
 class FornecedoresController
-{  
+{
   public function get($id = null) 
   {
-    if ($id)
+    if (!empty($_GET["api_key"]) && AdminMiddleware::verify($_GET["api_key"]))
     {
-      return Fornecedores::get($id);
-    }
-    else
-    {
-      return Fornecedores::getAll();
+      if ($id)
+      {
+        return Fornecedores::get($id);
+      }
+      else
+      {
+        return Fornecedores::getAll();
+      }
     }
   }
 
   public function post() 
   {
-    $data = file_get_contents('php://input');
-    Fornecedores::insert($data);
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+    
+    if (!empty($data["api_key"]) && AdminMiddleware::verify($data["api_key"]))
+    {
+      Fornecedores::insert($data);
+    }
   }
 
   public function patch($id) 
   {
-    $data = file_get_contents('php://input');
-    if ($id && $data)
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+
+    if (!empty($data["api_key"]) && AdminMiddleware::verify($data["api_key"]))
     {
-      Fornecedores::update($id, $data);
+      if ($id && $data)
+      {
+        Fornecedores::update($id, $data);
+      }
     }
   }
 
   public function delete($id) 
   {
-    if ($id)
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+    
+    if (!empty($data["api_key"]) && AdminMiddleware::verify($data["api_key"]))
     {
-      Fornecedores::delete($id);
+      if ($id)
+      {
+        Fornecedores::delete($id);
+      }
     }
   }
 }

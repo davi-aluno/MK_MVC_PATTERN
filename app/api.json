@@ -1,0 +1,307 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "image": "https://i.pinimg.com/originals/a3/6b/42/a36b422bb2bebcbd77bba846b83ddf5d.png",
+      "title": "davi name",
+      "preco": "R$ 100,00",
+      "quantidade": 5
+    },
+    {
+      "id": 2,
+      "image": "https://i.pinimg.com/originals/a3/6b/42/a36b422bb2bebcbd77bba846b83ddf5d.png",
+      "title": "Product name",
+      "preco": "R$ 100,00",
+      "quantidade": 10
+    },
+    {
+      "id": 3,
+      "image": "https://i.pinimg.com/originals/a3/6b/42/a36b422bb2bebcbd77bba846b83ddf5d.png",
+      "title": "Product name",
+      "preco": "R$ 100,00",
+      "quantidade": 2
+    },
+    {
+      "id": 4,
+      "image": "https://i.pinimg.com/originals/a3/6b/42/a36b422bb2bebcbd77bba846b83ddf5d.png",
+      "title": "Product name",
+      "preco": "R$ 100,00",
+      "quantidade": 9
+    },
+    {
+      "id": 5,
+      "image": "https://i.pinimg.com/originals/a3/6b/42/a36b422bb2bebcbd77bba846b83ddf5d.png",
+      "title": "Product name",
+      "preco": "R$ 100,00",
+      "quantidade": 15
+    },
+    {
+      "id": 6,
+      "image": "https://i.pinimg.com/originals/a3/6b/42/a36b422bb2bebcbd77bba846b83ddf5d.png",
+      "title": "Product name",
+      "preco": "R$ 100,00",
+      "quantidade": 4
+    },
+    {
+      "id": 7,
+      "image": "https://i.pinimg.com/originals/a3/6b/42/a36b422bb2bebcbd77bba846b83ddf5d.png",
+      "title": "Product name",
+      "preco": "R$ 100,00",
+      "quantidade": 2
+    },
+    {
+      "id": 8,
+      "image": "https://i.pinimg.com/originals/a3/6b/42/a36b422bb2bebcbd77bba846b83ddf5d.png",
+      "title": "Product name",
+      "preco": "R$ 100,00",
+      "quantidade": 9
+    }
+  ],
+  "users": [
+    {
+      "nome": "davi",
+      "email": "davi.israel01@gmail.com",
+      "cpf": "123.123.123-13",
+      "senha": "davi0812",
+      "id": 1
+    },
+    {
+      "nome": "brunateamo",
+      "email": "thedavi.israel01@gmail.com",
+      "cpf": "109.230.132-09",
+      "senha": "13090dwdwodwoko1209@",
+      "id": 2
+    },
+    {
+      "nome": "testando",
+      "email": "thedavi.israel@gmail.com",
+      "cpf": "4067109230",
+      "senha": "1234",
+      "id": 3
+    },
+    {
+      "nome": "testando",
+      "email": "thedavi.israel@gmail.com",
+      "cpf": "4067109230",
+      "senha": "1234",
+      "id": 4
+    },
+    {
+      "nome": "testando",
+      "email": "thedavi.israel@gmail.com",
+      "cpf": "4067109230",
+      "senha": "1234",
+      "id": 5
+    },
+    {
+      "nome": "testando",
+      "email": "thedavi.israel@gmail.com",
+      "cpf": "4067109230",
+      "senha": "1234",
+      "id": 6
+    },
+    {
+      "nome": "testando",
+      "email": "thedavi.israel@gmail.com",
+      "cpf": "4067109230",
+      "senha": "1234",
+      "id": 7
+    },
+    {
+      "nome": "testando",
+      "email": "testando@gai.com",
+      "cpf": "102.939.012-30",
+      "senha": "30193019031031dw",
+      "id": 8
+    },
+    {
+      "nome": "testando",
+      "email": "testando@gai.com",
+      "cpf": "102.939.012-30",
+      "senha": "30193019031031dw",
+      "id": 9
+    },
+    {
+      "nome": "ddwodkwo",
+      "email": "dwkodow@gmail.com",
+      "cpf": "313.029.230-32",
+      "senha": "senha123",
+      "id": 10
+    },
+    {
+      "nome": "ddwodkwo",
+      "email": "davi.israel01@gmail.com",
+      "cpf": "313.029.230-32",
+      "senha": "senha123",
+      "id": 11
+    },
+    {
+      "nome": "ddwodkwo",
+      "email": "davi.israel01@gmail.com",
+      "cpf": "313.029.230-32",
+      "senha": "senha123",
+      "id": 12
+    },
+    {
+      "nome": "ddwodkwo",
+      "email": "davi.israel01@gmail.com",
+      "cpf": "313.029.230-32",
+      "senha": "senha123",
+      "id": 13
+    },
+    {
+      "nome": "dwdwodkwo",
+      "email": "davi.israel01@gmail.com",
+      "cpf": "102.390.120-90",
+      "senha": "DOWODPWPDWPDWDW",
+      "id": 14
+    },
+    {
+      "nome": "dwdwodkwo1",
+      "email": "davi.israel01@gmail.com",
+      "cpf": "102.390.120-90",
+      "senha": "DOWODPWPDWPDWDW",
+      "id": 15
+    },
+    {
+      "nome": "dwdwodkwo112",
+      "email": "davi.israel01@gmail.com",
+      "cpf": "102.390.120-90",
+      "senha": "DOWODPWPDWPDWDW",
+      "id": 16
+    },
+    {
+      "nome": "dwdwodkwo112",
+      "email": "davi.israel01@gmail.com",
+      "cpf": "102.390.120-90",
+      "senha": "DOWODPWPDWPDWDW",
+      "id": 17
+    },
+    {
+      "nome": "dwdwodkwo112",
+      "email": "davi.israel01@gmail.com1",
+      "cpf": "102.390.120-90",
+      "senha": "DOWODPWPDWPDWDW",
+      "id": 18
+    },
+    {
+      "nome": "dwdwodkwo112",
+      "email": "davi.israel01@gmail.com",
+      "cpf": "102.390.120-90",
+      "senha": "DOWODPWPDWPDWDW",
+      "id": 19
+    },
+    {
+      "nome": "dwdwodkwo112",
+      "email": "davi.israel01@gmail.com5",
+      "cpf": "102.390.120-90",
+      "senha": "DOWODPWPDWPDWDW",
+      "id": 20
+    },
+    {
+      "nome": "dwdwodkwo112",
+      "email": "davi.israel01@gmail.com5",
+      "cpf": "102.390.120-90",
+      "senha": "DOWODPWPDWPDWDW",
+      "id": 21
+    },
+    {
+      "nome": "dwdwodkwo112",
+      "email": "davi.israel01@gmail.com51",
+      "cpf": "102.390.120-90",
+      "senha": "DOWODPWPDWPDWDW",
+      "id": 22
+    },
+    {
+      "nome": "dwdwodkwo112",
+      "email": "davi.israel01@gmail.com52",
+      "cpf": "102.390.120-90",
+      "senha": "DOWODPWPDWPDWDW",
+      "id": 23
+    },
+    {
+      "nome": "testandeod",
+      "email": "1290dw@gmail.com",
+      "cpf": "103.103.910-91",
+      "senha": "dd0wdwkodwdw",
+      "id": 24
+    },
+    {
+      "nome": "testandeod",
+      "email": "1290dw@gmail.com1",
+      "cpf": "103.103.910-91",
+      "senha": "dd0wdwkodwdw",
+      "id": 25
+    },
+    {
+      "nome": "dwokdwo",
+      "email": "davi.israel01@gmail.comdwdwdw123",
+      "cpf": "102.930.139-01",
+      "senha": "davi0812",
+      "id": 26
+    },
+    {
+      "nome": "admin",
+      "email": "admin@gmail.com",
+      "cpf": "102.930.139-01",
+      "senha": "senha1234",
+      "id": 27
+    }
+  ],
+  "pedidos": [
+    {
+      "endereco": "",
+      "telefone": "",
+      "cidade": "",
+      "userId": "1",
+      "selectedProductIds": "1,3,7,4,5",
+      "selectedProductQtds": "1,1,1,1,1",
+      "id": 1
+    },
+    {
+      "endereco": "dwdowkodw",
+      "telefone": "dwodkwo",
+      "cidade": "dwdwdw",
+      "userId": "1",
+      "selectedProductIds": "1,3,7,4,5",
+      "selectedProductQtds": "1,1,1,1,1",
+      "id": 2
+    },
+    {
+      "endereco": "testando",
+      "telefone": "01 29391-2039",
+      "cidade": "dwokdwodwdw",
+      "userId": "1",
+      "selectedProductIds": "1,3,7,4,5",
+      "selectedProductQtds": "1,1,1,1,1",
+      "id": 3
+    },
+    {
+      "endereco": "dwdwdw",
+      "telefone": "wdwdw",
+      "cidade": "1dwdw",
+      "userId": "1",
+      "selectedProductIds": "1,3,7,4,5",
+      "selectedProductQtds": "1,1,1,1,1",
+      "id": 4
+    },
+    {
+      "endereco": "testando",
+      "telefone": "10 39120-3019",
+      "cidade": "teste",
+      "userId": "1",
+      "selectedProductIds": "1,3,7,4,5",
+      "selectedProductQtds": "1,1,1,1,1",
+      "id": 5
+    },
+    {
+      "endereco": "testdwdwi",
+      "telefone": "12 30193-0103",
+      "cidade": "dwdwdwdwwdw",
+      "userId": "1",
+      "selectedProductIds": "1,3,7,4,5",
+      "selectedProductQtds": "1,1,1,1,1",
+      "id": 6
+    }
+  ]
+}
